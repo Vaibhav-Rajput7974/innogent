@@ -41,8 +41,7 @@ public class update extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String adm= request.getParameter("r1");
-		if(adm==null)
-			adm="false";
+		
 		boolean admin=Boolean.parseBoolean(adm);
 		int empId=Integer.parseInt((String)request.getParameter("t1"));
 		String firstName=(String)request.getParameter("t2");

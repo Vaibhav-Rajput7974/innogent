@@ -37,6 +37,7 @@
                         empId = Integer.parseInt(request.getParameter("id"));
                     %>
                     <tr>
+                    
                         <td><input readonly type="text" class="form-control" name="t1" value="<%= empId %>"></td>
                         <td><input type="text" class="form-control" name="t2"></td>
                         <td><input type="text" class="form-control" name="t3"></td>
@@ -52,15 +53,17 @@
             if(!emp1.isAdmin()){
             %>
             <div class="form-check">
+         
                 <input class="form-check-input" type="radio" name="r1" value="true" id="adminRadio">
                 <label class="form-check-label" for="adminRadio">Admin</label>
             </div>
             <% } %>
+            <input class="form-check-input" type="hidden" name="r1" value="true" >
             <button type="submit" name="submit" value="Add_data" class="btn btn-primary">Update</button>
             </form>
             <%
             }else{
-            response.sendRedirect("login.jsp");
+            	response.sendRedirect("login.jsp");
             }
             %>
         </div>
