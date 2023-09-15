@@ -41,8 +41,10 @@ public class login extends HttpServlet {
 				// Invalidate (delete) the session
 				session.invalidate();
 			}
-			rd=request.getRequestDispatcher("login.jsp");
-			rd.include(request, response);
+			response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
+			response.setHeader("Pragma", "no-cache");
+			response.setDateHeader("Expires", 0);
+			response.sendRedirect("login.jsp");
 	}
 
 	/**
@@ -61,13 +63,12 @@ public class login extends HttpServlet {
 			if(emp != null) {
 				HttpSession session=request.getSession();
 				session.setAttribute("emp", emp);
-				rd=request.getRequestDispatcher("home.jsp");
-				rd.include(request, response);
+				response.sendRedirect("home.jsp");
 			}
 			else {
 				request.setAttribute("msg","Invalid id Password");
-				rd=request.getRequestDispatcher("login.jsp");
-				rd.include(request, response);
+				response.sendRedirect("login.jsp");
+				
 			}
 		}
 		//doGet(request, response);

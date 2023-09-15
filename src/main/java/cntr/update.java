@@ -60,14 +60,12 @@ public class update extends HttpServlet {
 			change.setFirstName(uName);
 			change.setPassword(pass);
 			//System.out.println(change);
-			rd=request.getRequestDispatcher("home.jsp");
-			rd.include(request, response);
+			response.sendRedirect("login.jsp");
 			
 		}
 		else {
 			request.setAttribute("update", "No User With the id Exist");
-			rd=request.getRequestDispatcher("update.jsp");
-			rd.include(request, response);
+			response.sendRedirect("login.jsp");
 		}
 	}
 

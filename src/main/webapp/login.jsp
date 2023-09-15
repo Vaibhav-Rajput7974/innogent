@@ -24,7 +24,11 @@
     <button type="submit" name="submit" value="login" class="btn btn-primary">Login</button>
   </form>
   <%! String message; %>
-  <% message=(String)request.getAttribute("msg");
+  <%
+  //response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
+  //response.setHeader("Pragma", "no-cache");
+  response.setDateHeader("Expires", 0);
+  message=(String)request.getAttribute("msg");
   if(message!=null)
   {
 	  %>

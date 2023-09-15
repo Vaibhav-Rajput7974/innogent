@@ -37,8 +37,7 @@ public class delete extends HttpServlet {
 		if(cheak) {
 			
 		}
-		rd=request.getRequestDispatcher("home.jsp");
-		rd.include(request, response);
+		response.sendRedirect("home.jsp");
 	}
 
 	/**
