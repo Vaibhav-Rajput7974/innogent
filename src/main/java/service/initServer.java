@@ -19,7 +19,7 @@ public class initServer extends HttpServlet {
      */
     public initServer() {
         super();
-        System.out.println("init");
+        //System.out.println("init");
         EmployeeService em=new EmployeeService();
     	em.setEmployeelist();
         // TODO Auto-generated constructor stub

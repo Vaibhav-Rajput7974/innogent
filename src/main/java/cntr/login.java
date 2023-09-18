@@ -66,8 +66,7 @@ public class login extends HttpServlet {
 				response.sendRedirect("home.jsp");
 			}
 			else {
-				request.setAttribute("msg","Invalid id Password");
-				response.sendRedirect("login.jsp");
+				response.sendRedirect("login.jsp?msg=invalid UserName Password");
 				
 			}
 		}

@@ -57,10 +57,10 @@ public class update extends HttpServlet {
 			change.setFirstName(firstName);
 			change.setLastName(secondName);
 			change.setSalary(Salary);
-			change.setFirstName(uName);
+			change.setUsername(uName);
 			change.setPassword(pass);
 			//System.out.println(change);
-			response.sendRedirect("login.jsp");
+			response.sendRedirect("home.jsp");
 			
 		}
 		else {

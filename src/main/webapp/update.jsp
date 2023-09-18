@@ -26,33 +26,47 @@
                     </tr>
                 </thead>
                 <tbody>
+                <%!
+                int empId;
+                RequestDispatcher rd;
+                EmployeeService e;
+                Employee emp1;
+                Employee emp;
+                String firstname;
+                String secondname;
+                String uname;
+                int slary;
+                String upass;
+                %>
                     <%
                     response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
                     response.setHeader("Pragma", "no-cache");
                     response.setDateHeader("Expires", 0);
-                    int empId;
-                    RequestDispatcher rd;
-                    EmployeeService e;
-                    Employee emp1;
-                    Employee emp;
                     emp = (Employee)session.getAttribute("emp");
                     if(emp != null){
-                        empId = Integer.parseInt(request.getParameter("id"));
+                    empId = Integer.parseInt(request.getParameter("id"));
+                    e=new EmployeeService();
+                    emp1=e.update(empId);
+                    firstname=emp1.getFirstName();
+                    secondname=emp1.getLastName();
+                    slary=emp1.getSalary();
+                    uname=emp1.getUsername();
+                    upass=emp1.getPassword();
+                    
+                    
                     %>
                     <tr>
                     
                         <td><input readonly type="text" class="form-control" name="t1" value="<%= empId %>"></td>
-                        <td><input type="text" class="form-control" name="t2"></td>
-                        <td><input type="text" class="form-control" name="t3"></td>
-                        <td><input type="number" class="form-control" name="t4"></td>
-                        <td><input type="text" class="form-control" name="t5"></td>
-                        <td><input type="text" class="form-control" name="t6"></td>
+                        <td><input type="text" value="<%= firstname %>"class="form-control" name="t2"></td>
+                        <td><input type="text" value="<%= secondname %>"class="form-control" name="t3"></td>
+                        <td><input type="number" value="<%= slary %>"class="form-control" name="t4"></td>
+                        <td><input type="text" value="<%= uname %>"class="form-control" name="t5"></td>
+                        <td><input type="text" value="<%= upass %>"class="form-control" name="t6"></td>
                     </tr>
                 </tbody>
             </table>
             <%
-            e=new EmployeeService();
-            emp1=e.update(empId);
             if(!emp1.isAdmin()){
             %>
             <div class="form-check">
@@ -62,7 +76,7 @@
             </div>
             <% } %>
             <input class="form-check-input" type="hidden" name="r1" value="true" >
-            <button type="submit" name="submit" value="Add_data" class="btn btn-primary">Update</button>
+            <button type="submit" name="submit" value="Add_data" href="update" 	class="btn btn-primary">Update</button>
             </form>
             <%
             }else{

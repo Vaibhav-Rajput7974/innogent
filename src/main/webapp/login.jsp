@@ -25,15 +25,17 @@
   </form>
   <%! String message; %>
   <%
-  //response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
-  //response.setHeader("Pragma", "no-cache");
-  response.setDateHeader("Expires", 0);
-  message=(String)request.getAttribute("msg");
+  message=(String)request.getParameter("msg");
   if(message!=null)
   {
 	  %>
 	  <h2><%= message %></h2>
-  <% }%>
+  <% }
+  response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
+  response.setHeader("Pragma", "no-cache");
+  response.setDateHeader("Expires", 0);
+  
+  %>
   
 </div>
 </body>
