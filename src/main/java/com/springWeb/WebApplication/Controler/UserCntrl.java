@@ -116,7 +116,7 @@ public class UserCntrl {
         }
     }
     @DeleteMapping("/students/{studentsId}")
-    public boolean deleteById(@PathVariable Long id,@PathVariable Long studentsId){
+    public boolean deleteStudentId(@PathVariable Long studentsId){
         try {
             studentRep.deleteById(studentsId);
             return true;
