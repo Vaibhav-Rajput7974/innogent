@@ -63,8 +63,8 @@ public class UserCntrl {
     @GetMapping("/{id}/students/{collegeId}")
     public List<Student> getByCollegId(@PathVariable Long collegeId){
         try{
-            Optional<Student> optionalStudent=studentRep.findByCollegeId(collegeId);
-            return optionalStudent;
+            //Optional<Student> optionalStudent=studentRep.findByCollegeId(collegeId);
+            //return optionalStudent;
         }
         catch (Exception e){
             System.out.println("No Student With the id Exist");
