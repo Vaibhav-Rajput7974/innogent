@@ -24,6 +24,10 @@ public class College {
         return students;
     }
 
+    public Long getId() {
+        return id;
+    }
+
     public void setStudents(List<Student> students) {
         this.students = students;
     }
