@@ -13,5 +13,5 @@ public interface StudentRep extends JpaRepository<Student,Long> {
     @Transactional
     void deleteByCollegeId(long collegeId);
     @Transactional
-    List<Student> findByCollegeId(int collegeId);
+    List<Student> findByCollegeId(long collegeId);
 }
