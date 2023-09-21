@@ -60,14 +60,13 @@ public class UserCntrl {
         }
     }
 
-
     @PostMapping("/")
     public College addData(@RequestBody College clg){
         userRepo.save(clg);
         return clg;
     }
 
-    @PostMapping("/{id}")
+    @PutMapping("/{id}")
     public College addStudents(@PathVariable long id,@RequestBody College clg){
         try{
             Optional<College> optionalCollege=userRepo.findById(id);
@@ -100,7 +99,7 @@ public class UserCntrl {
             return false;
         }
     }
-    @PostMapping("/students/update/{id}")
+    @PutMapping("/students/{id}")
     public boolean upDataStudents(@PathVariable long id,@RequestBody Student st){
         try{
             System.out.println("update");
