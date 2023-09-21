@@ -61,7 +61,6 @@ public class UserCntrl {
     }
 
 
-
     @PostMapping("/")
     public College addData(@RequestBody College clg){
         userRepo.save(clg);
@@ -101,8 +100,23 @@ public class UserCntrl {
             return false;
         }
     }
-
-    @DeleteMapping("/{id}/students/{studentsId}")
+    @PostMapping("/students/update/{id}")
+    public boolean upDataStudents(@PathVariable long id,@RequestBody Student st){
+        try{
+            System.out.println("update");
+            System.out.println(st);
+            Optional<Student > optionalStudent=studentRep.findById(id);
+            Student student=optionalStudent.get();
+            student.setName(st.getName());
+            student.setEmail(st.getEmail());
+            studentRep.save(student);
+            return  true;
+        }
+        catch (Exception e){
+            return false;
+        }
+    }
+    @DeleteMapping("/students/{studentsId}")
     public boolean deleteById(@PathVariable Long id,@PathVariable Long studentsId){
         try {
             studentRep.deleteById(studentsId);
@@ -123,4 +137,5 @@ public class UserCntrl {
             return false;
         }
     }
+
 }
