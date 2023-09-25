@@ -17,7 +17,7 @@ public class College {
     private String name;
     private String location;
 
-    @OneToMany(mappedBy = "college")
+    @OneToMany(mappedBy = "college",cascade = CascadeType.ALL)
     List<Student> students ;
 
     public List<Student> getStudents() {

@@ -4,6 +4,7 @@ import com.springWeb.WebApplication.Entity.College;
 import com.springWeb.WebApplication.Entity.Student;
 import com.springWeb.WebApplication.Repositry.CollegeRep;
 import com.springWeb.WebApplication.Repositry.StudentRep;
+import jakarta.persistence.OneToMany;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,6 +19,8 @@ public class UserCntrl {
     CollegeRep userRepo;
     @Autowired
     StudentRep studentRep;
+
+    //get all college
     @GetMapping("/")
     public List<College> getUsers(){
         System.out.println("Get Method");
@@ -25,6 +28,7 @@ public class UserCntrl {
         return colleges;
     }
 
+    //get  college by id
     @GetMapping("/{id}")
     public College getById(@PathVariable Long id){
         try{
@@ -36,9 +40,9 @@ public class UserCntrl {
             System.out.println("No College With The Id Exist");
             return null;
         }
-
     }
 
+    // Get All student By college id
     @GetMapping("/{id}/students")
     public List<Student > getStudentById(@PathVariable Long id){
         Optional<College> college=userRepo.findById(id);
@@ -46,7 +50,7 @@ public class UserCntrl {
         return college1.getStudents();
     }
 
-
+    // Get particular Student By id
     @GetMapping("/students/{studentid}")
     public Student getByStudentId(@PathVariable Long studentid){
         try{
@@ -60,12 +64,18 @@ public class UserCntrl {
         }
     }
 
+    // Add College
     @PostMapping("/")
     public College addData(@RequestBody College clg){
+        List<Student> studentList=clg.getStudents();
+        for(int i=0;i<studentList.size();i++){
+            studentList.get(i).setCollege(clg);
+        }
         userRepo.save(clg);
         return clg;
     }
 
+    // Update College By college Id
     @PutMapping("/{id}")
     public College addStudents(@PathVariable long id,@RequestBody College clg){
         try{
@@ -73,6 +83,7 @@ public class UserCntrl {
             College college=optionalCollege.get();
             college.setName(clg.getName());
             college.setLocation(clg.getLocation());
+            userRepo.save(college);
             return clg;
         }
         catch (Exception e){
@@ -83,7 +94,7 @@ public class UserCntrl {
     }
 
 
-
+    // Add Student to particular College
     @PostMapping("/{id}/students")
     public boolean addstudents(@PathVariable Long id,@RequestBody Student student){
         try {
@@ -91,7 +102,6 @@ public class UserCntrl {
             College college=optionalCollege.get();
             student.setCollege(college);
             college.getStudents().add(student);
-            studentRep.save(student);
             userRepo.save(college);
             return true;
         }
@@ -99,6 +109,8 @@ public class UserCntrl {
             return false;
         }
     }
+
+    // Update Student By id
     @PutMapping("/students/{id}")
     public boolean upDataStudents(@PathVariable long id,@RequestBody Student st){
         try{
@@ -115,6 +127,7 @@ public class UserCntrl {
             return false;
         }
     }
+    // Delete Student By id
     @DeleteMapping("/students/{studentsId}")
     public boolean deleteStudentId(@PathVariable Long studentsId){
         try {
@@ -125,10 +138,11 @@ public class UserCntrl {
             return false;
         }
     }
+
+    // Delete College By id
     @DeleteMapping("/{id}")
     public boolean deleteById(@PathVariable Long id){
         try {
-            studentRep.deleteByCollegeId(id);
             userRepo.deleteById(id);
             return true;
         }
