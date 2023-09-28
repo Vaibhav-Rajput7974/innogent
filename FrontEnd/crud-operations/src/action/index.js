@@ -3,9 +3,9 @@ export const showData = ()=>{
         type : "GETDATA"
     }
 }
-export const addData = (num) =>{
+export const addData = (obj) =>{
     return{
         type : "ADDDATA",
-        payload : num
+        payload : obj
     };
 }

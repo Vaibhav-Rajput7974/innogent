@@ -1,7 +1,6 @@
 import { combineReducers } from "redux"
 import crudOperation from "./crud"
 const rootReducer=combineReducers({
-    crudOperation,
-    
+    crudSet : crudOperation,  
 })
 export default rootReducer;
