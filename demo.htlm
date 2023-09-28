@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Employee Management</title>
+    <!-- Add Bootstrap CSS link -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container mt-5">
+        <%
+        boolean check = false;
+        Employee emp = (Employee)session.getAttribute("emp");
+        if (emp != null) {
+            if (emp.isAdmin()) {
+        %>
+        <table class="table table-bordered">
+            <thead class="thead-dark">
+                <tr>
+                    <th>Admin</th>
+                    <th>Employee ID</th>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Salary</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <%
+                for (int i = 0; i < EmployeeService.employeelist.size(); i++) {
+                    Employee employee = EmployeeService.employeelist.get(i);
+                %>
+                <tr>
+                    <td><%= employee.isAdmin() %></td>
+                    <td><%= employee.getEmpId() %></td>
+                    <td><%= employee.getFirstName() %></td>
+                    <td><%= employee.getLastName() %></td>
+                    <td><%= employee.getSalary() %></td>
+                    <td>
+                        <button class="btn btn-danger" onclick="deleteEmployee(<%= employee.getEmpId() %>)">Delete</button>
+                        <button class="btn btn-primary" onclick="updateEmployee(<%= employee.getEmpId() %>)">Update</button>
+                    </td>
+                </tr>
+                <%
+                }
+                %>
+            </tbody>
+        </table>
+        <a class="btn btn-success" href="add_Data.jsp">Add</a>
+        <%
+        } else {
+        %>
+        <table class="table table-bordered">
+            <thead class="thead-dark">
+                <tr>
+                    <th>Admin</th>
+                    <th>Employee ID</th>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Salary</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><%= emp.isAdmin() %></td>
+                    <td><%= emp.getEmpId() %></td>
+                    <td><%= emp.getFirstName() %></td>
+                    <td><%= emp.getLastName() %></td>
+                    <td><%= emp.getSalary() %></td>
+                </tr>
+            </tbody>
+        </table>
+        <script>
+            function showAlert() {
+                alert("This is an alert message!");
+            }
+        </script>
+        <%
+        }
+        } else {
+            rd = request.getRequestDispatcher("login.jsp");
+            rd.include(request, response);
+        }
+        %>
+    </div>
+
+    <!-- Add Bootstrap JS and jQuery -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

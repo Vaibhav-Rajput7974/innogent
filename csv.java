@@ -70,7 +70,7 @@ public class csv {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
+		
         return data;
     }
 	public static ArrayList<Studentclass> uploadClass(String filePath) {
@@ -79,7 +79,6 @@ public class csv {
         try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
             String line=br.readLine();
             while ((line = br.readLine()) != null) {
-                // Split the line by a comma (assuming it's a CSV file)
 				line=line.replaceAll("\\s", "");
                 String[] row = line.split(",");
 				Studentclass st=new Studentclass(Integer.parseInt(row[0]),row[1]);
@@ -97,7 +96,6 @@ public class csv {
         try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
             String line=br.readLine();
             while ((line = br.readLine()) != null) {
-                // Split the line by a comma (assuming it's a CSV file)
 				line=line.replaceAll("\\s", "");
                 String[] row = line.split(",");
 				Address st=new Address(Integer.parseInt(row[0]),Integer.parseInt(row[1]),row[2],Integer.parseInt(row[3]));
@@ -119,7 +117,7 @@ public class csv {
 			if(data3.get(i).pin_code == pin){
 				int idx=data3.get(i).student_id-1;
 				out.add(data1.get(idx));
-				//System.out.println(data1.get(idx).name);
+				System.out.println(data1.get(idx).name);
 			}
 		}
 		return out;
@@ -133,7 +131,7 @@ public class csv {
 			if(data3.get(i).city.equals(ct)){
 				int idx=data3.get(i).student_id-1;
 				out.add(data1.get(idx));
-				//System.out.println(data1.get(idx).name);
+				System.out.println(data1.get(idx).name);
 			}
 		}
 		return out;
@@ -146,7 +144,7 @@ public class csv {
 		for(int i=0;i<data1.size();i++){
 			if(data1.get(i).marks>50){
 				out.add(data1.get(i));
-				//System.out.println(data1.get(i).name);
+				System.out.println(data1.get(i).name);
 			}
 		}
 		return out;
@@ -159,7 +157,7 @@ public class csv {
 		for(int i=0;i<data1.size();i++){
 			if(data1.get(i).marks<50){
 				out.add(data1.get(i));
-				//System.out.println(data1.get(i).name);
+				System.out.println(data1.get(i).name);
 			}
 		}
 		return out;
@@ -177,7 +175,7 @@ public class csv {
 		}
 		for(int i=0;i<data1.size();i++){
 			if(data1.get(i).class__id == cl_idx){
-				//System.out.println(data1.get(i).name);
+				System.out.println(data1.get(i).name);
 				out.add(data1.get(i));
 			}
 		}
@@ -190,8 +188,8 @@ public class csv {
 		
 		ArrayList<Student> out=new ArrayList<Student>();
 		for(int i=0;i<data1.size();i++){
-			if(data1.get(i).age < 20){
-				//System.out.println(data1.get(i).name);
+			if(data1.get(i).age > 20){
+				System.out.println("failed Student ="+data1.get(i).name);
 				out.add(data1.get(i));
 			}
 		}
@@ -205,7 +203,7 @@ public class csv {
 		
 		for(int i=0;i<data1.size();i++){
 			if(data1.get(i).id == to_delete){
-				//System.out.println(data1.get(i).id);
+				System.out.println(data1.get(i).id);
 				data1.remove(i);
 			}
 		}
@@ -284,7 +282,7 @@ public class csv {
 		ArrayList<Student> out=new ArrayList<Student>();
 		for(int i=0;i<data.size();i++){
 			if(data.get(i).class__id == find_class_id){
-				//System.out.println(data.get(i).name);
+				System.out.println(data.get(i).name);
 				out.add(data.get(i));
 			}
 		}
@@ -307,7 +305,7 @@ public class csv {
 			for(int j=0;j<find_data.size();j++){
 				if(data.get(i).id == find_data.get(j).student_id){
 					out.add(data.get(i));
-					//System.out.println(data.get(i).name);
+					System.out.println(data.get(i).name);
 				}
 			}
 		}
@@ -330,7 +328,7 @@ public class csv {
 			for(int j=0;j<find_data.size();j++){
 				if(data.get(i).id == find_data.get(j).student_id){
 					out.add(data.get(i));
-					//System.out.println(data.get(i).name);
+					System.out.println(data.get(i).name);
 				}
 			}
 		}
@@ -371,26 +369,28 @@ public class csv {
 		ArrayList<Studentclass> data2=uploadClass("E:/innogent/studentclass.csv");
 		ArrayList<Address> data3=uploadAddress("E:/innogent/address.csv");
 		
-		//ArrayList<Student> res=function1(data1,data2,data3,482002);
+		ArrayList<Student> res=function1(data1,data2,data3,482002);
 		
-		//res=classFilter(data2,res,"C");
-		
-		//ArrayList<Student> res2=function2(data1,data2,data3,"indore");
+		res=classFilter(data2,res,"C");
+		printfun(res);
+		ArrayList<Student> res2=function2(data1,data2,data3,"indore");
 	
 
 		ArrayList<Student> res3=ordermarks(data1);
 		res3=genderFilter(res3,"F");
+		res3=cityFilter(data3,res3,"indore");
 	
-		//ArrayList<Student> res4=function4(data1,data2,data3);
-		//ArrayList<Student> res5=function5(data1,data2,data3);
+		ArrayList<Student> res4=function4(
+data1,data2,data3);
+		ArrayList<Student> res5=function5(data1,data2,data3);
 		
-		//ArrayList<Student> res6=function6(data1,data2,data3,"A");
-		//ArrayList<Student> res8=function8(data1,data2,data3);
+		ArrayList<Student> res6=function6(data1,data2,data3,"A");
+		ArrayList<Student> res8=function8(data1,data2,data3);
 		//delete function;
 		//function9(data1,data2,data3,1);
-		//ArrayList<Student> res11=function11(data1,data2,data3,1,9,"F");
-		//res11=ordermarks(res11);
+		ArrayList<Student> res11=function11(data1,data2,data3,1,9,"F");
+		res11=ordermarks(res11);
 		
-		printfun(res3);
+		//printfun(res3);
 	}	
 }

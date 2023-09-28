@@ -21,12 +21,9 @@ class Employee
 }
 class Assigment2{
 	static void function1(ArrayList<Employee> employeeList){
-		int male=0;
+		Stream<Employee> st=employeeList.stream();
+		int male=st.count().filter(e->e.gender.equals("M"));
 		int female=0;
-		for(int i=0;i<employeeList.size();i++){
-			if(employeeList.get(i).gender.equals("Male"))male++;
-			if(employeeList.get(i).gender.equals("Female"))female++;
-		}
 		System.out.println("Male  -> "+male+"\n"+"Female  -> "+female);
 	}
 	
@@ -98,7 +95,7 @@ class Assigment2{
 		HashMap<String,Integer> map=new HashMap<String,Integer>();
 		HashMap<String,Double> map1=new HashMap<String,Double>();
 		for(int i=0;i<employeeList.size();i++){
-			String cur=employeeList.get(i).department;
+			String cur=employeeList.get(i).department;	
 			double cur2=employeeList.get(i).salary;
 			
 			if(map.containsKey(cur)){
@@ -110,7 +107,6 @@ class Assigment2{
 			else{
 				map.put(cur,0);
 				map1.put(cur,cur2);
-				
 			}
 		}
 		for(String key:map.keySet()){
@@ -217,18 +213,18 @@ class Assigment2{
 		employeeList.add(new Employee(277, "Anuj Chettiar", 31, "Male", "Product Development", 2012, 35700.0));
 		
 		function1(employeeList);
-		function2(employeeList);
-		function3(employeeList);
-		function4(employeeList);
-		function5(employeeList);
-		function6(employeeList);
-		function7(employeeList);
-		function8(employeeList);
-		function9(employeeList);
-		function11(employeeList);
-		function12(employeeList);
-		function13(employeeList);
-		function14(employeeList);
+		//function2(employeeList);
+		///function3(employeeList);
+		//function4(employeeList);
+		//function5(employeeList);
+		//function6(employeeList);
+		//function7(employeeList);
+		//function8(employeeList);
+		//function9(employeeList);
+		//function11(employeeList);
+		//function12(employeeList);
+		//function13(employeeList);
+		//function14(employeeList);
 	}
 }
 
