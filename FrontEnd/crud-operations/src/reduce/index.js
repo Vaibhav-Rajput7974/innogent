@@ -1,6 +1,6 @@
 import { combineReducers } from "redux"
-import crudOperation from "./crud"
+import CrudeSlice from "../slice/CrudeSlice";
 const rootReducer=combineReducers({
-    crudSet : crudOperation,  
+    crudSet : CrudeSlice,  
 })
 export default rootReducer;

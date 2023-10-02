@@ -1,4 +1,8 @@
-import { createStore } from "redux";
-import rootReducer from "./reduce/index";
-const store=createStore(rootReducer);
+import { configureStore } from "@reduxjs/toolkit";
+import CrudeSlice from "./slice/CrudeSlice";
+const store=configureStore({
+    reducer:{
+        crud:CrudeSlice,
+    }
+});
 export default store;
