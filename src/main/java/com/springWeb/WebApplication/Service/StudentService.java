@@ -25,29 +25,29 @@ public class StudentService {
         }
     }
 
-    public boolean upDataStudents( long id, Student st,StudentRep studentRep){
+    public Student upDataStudents( long id, Student st,StudentRep studentRep){
         try{
-            System.out.println("update");
-            System.out.println(st);
             Optional<Student > optionalStudent=studentRep.findById(id);
             Student student=optionalStudent.get();
             student.setName(st.getName());
             student.setEmail(st.getEmail());
             studentRep.save(student);
-            return  true;
+            return  student;
         }
         catch (Exception e){
-            return false;
+            return null;
         }
     }
 
-    public boolean deleteStudentId( Long studentsId,StudentRep studentRep){
+    public Student deleteStudentId( Long studentsId,StudentRep studentRep){
         try {
+            Optional<Student> studentOptional= studentRep.findById(studentsId);
+            Student student=studentOptional.get();
             studentRep.deleteById(studentsId);
-            return true;
+            return student;
         }
         catch (Exception e){
-            return false;
+            return null;
         }
     }
 }

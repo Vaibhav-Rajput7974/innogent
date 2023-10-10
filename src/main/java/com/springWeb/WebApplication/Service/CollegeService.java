@@ -3,6 +3,7 @@ package com.springWeb.WebApplication.Service;
 import com.springWeb.WebApplication.Entity.College;
 import com.springWeb.WebApplication.Entity.Student;
 import com.springWeb.WebApplication.Repositry.CollegeRep;
+import com.springWeb.WebApplication.Repositry.StudentRep;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -58,28 +59,31 @@ public class CollegeService {
         }
     }
 
-    public boolean addstudents( Long id,  Student student, CollegeRep userRepo){
+    public Student addstudents(Long id, Student student, CollegeRep userRepo, StudentRep studentRep){
         try {
             Optional<College> optionalCollege = userRepo.findById(id);
             College college=optionalCollege.get();
             student.setCollege(college);
             college.getStudents().add(student);
+
+            Student temp=studentRep.save(student);
             userRepo.save(college);
-            return true;
+            return temp;
         }
         catch (Exception e){
-            return false;
+            return null;
         }
     }
 
-    public boolean deleteById( Long id,CollegeRep userRepo){
+    public College deleteById( Long id,CollegeRep userRepo){
         try {
+            Optional<College> collegeOptional= userRepo.findById(id);
+            College college=collegeOptional.get();
             userRepo.deleteById(id);
-            return true;
+            return college;
         }
         catch (Exception e){
-            return false;
+            return null;
         }
     }
-
 }
