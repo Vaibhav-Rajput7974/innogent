@@ -13,9 +13,13 @@ import com.springWeb.WebApplication.Service.StudentService;
 import com.springWeb.WebApplication.Service.UserService;
 import jakarta.persistence.OneToMany;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
@@ -65,17 +69,17 @@ public class UserCntrl {
 
     @Autowired
     JwtUtil jwtUtil;
-//    @Autowired
-//    AuthenticationManager manager;
 
     @GetMapping("/login")
     public String getAllUsers(@RequestBody Users users){
-//        doAuthenticate(users.getEmail(), users.getPassword());
+        doAuthenticate(users.getEmail(), users.getPassword());
         UserDetails userDetails= customeUserDetailService.loadUserByUsername(users.getEmail());
+
         String token=jwtUtil.generateToken(userDetails);
         System.out.println("token "+ token);
         return token;
     }
+
 
 //    private void doAuthenticate(String email, String password) {
 //
@@ -89,6 +93,23 @@ public class UserCntrl {
 //
 //    }
     // Get particular Student By id
+
+
+    @Autowired
+    private AuthenticationManager authenticationManager;
+
+    private void doAuthenticate(String email, String password) {
+        UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(email, password);
+        try {
+            Authentication authentication = authenticationManager.authenticate(authenticationToken);
+            SecurityContextHolder.getContext().setAuthentication(authentication);
+        } catch (BadCredentialsException e) {
+            throw new BadCredentialsException("Invalid Username or Password!!");
+        }
+        System.out.println(email+"   "+password);
+    }
+
+
     @GetMapping("/students/{studentid}")
     public Student getByStudentId(@PathVariable Long studentid){
         return studentService.getByStudentId(studentid,studentRep);

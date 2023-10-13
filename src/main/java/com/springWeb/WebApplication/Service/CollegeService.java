@@ -65,7 +65,6 @@ public class CollegeService {
             College college=optionalCollege.get();
             student.setCollege(college);
             college.getStudents().add(student);
-
             Student temp=studentRep.save(student);
             userRepo.save(college);
             return temp;

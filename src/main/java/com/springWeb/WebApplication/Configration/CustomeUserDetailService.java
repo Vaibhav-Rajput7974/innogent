@@ -3,6 +3,8 @@ package com.springWeb.WebApplication.Configration;
 import com.springWeb.WebApplication.Entity.Users;
 import com.springWeb.WebApplication.Repositry.UsersRep;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -24,4 +26,5 @@ public class CustomeUserDetailService implements UserDetailsService {
         CustomeuserDetails customeuserDetails=new CustomeuserDetails(user);
         return customeuserDetails;
     }
+
 }
